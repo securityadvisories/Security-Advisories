@@ -6,7 +6,6 @@ The goal is to deliver clear, reproducible, and actionable information for defen
 ---
 
 ## Purpose
-
 - Document and share discovered vulnerabilities in a transparent and responsible manner  
 - Provide high-quality technical analysis to aid in security understanding and remediation  
 - Contribute to the security community through open and verifiable research
@@ -14,8 +13,11 @@ The goal is to deliver clear, reproducible, and actionable information for defen
 ---
 
 ## Repository Structure
+- Advisories - Directory containing individual advisories  
 
-- `advisories/` — directory containing individual advisories  
+---
+
+## Advisory Structure
 - Each advisory follows a consistent format including:
   - Title
   - Product, Version, Platform
