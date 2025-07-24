@@ -83,6 +83,7 @@ References
 
 Credits
 -------
-Discovered by Igor Marcel of Blaze Information Security.
+Discovered by Igor Marcel of Blaze Information Security,
+https://www.blazeinfosec.com
 
 ===============================================================================
