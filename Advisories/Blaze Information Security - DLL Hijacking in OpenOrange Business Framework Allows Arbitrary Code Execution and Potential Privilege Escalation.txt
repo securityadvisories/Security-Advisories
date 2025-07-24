@@ -1,5 +1,5 @@
 ===============================================================================
-Blaze Information Security Advisory                            
+Blaze Information Security Advisory                            [CVE-2024-42048]
 ===============================================================================
 Title      : DLL Hijacking in OpenOrange Business Framework Allows Arbitrary
              Code Execution and Potential Privilege Escalation
