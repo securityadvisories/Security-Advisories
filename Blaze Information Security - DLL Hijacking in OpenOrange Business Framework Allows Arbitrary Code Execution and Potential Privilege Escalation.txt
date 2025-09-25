@@ -1,0 +1,91 @@
+============================================================================
+Blaze Information Security Advisory                         [CVE-2024-42048]
+============================================================================
+Title      : DLL Hijacking in OpenOrange Business Framework Allows Arbitrary
+             Code Execution and Potential Privilege Escalation
+Product    : OpenOrange Business Framework
+Version    : 1.15.5
+Platform   : Microsoft Windows
+Severity   : Medium
+Date       : 16/07/2024
+Discovered : Igor Marcel (Blaze Information Security)
+============================================================================
+
+Overview
+--------
+
+A DLL hijacking vulnerability was identified in OpenOrange Business
+Framework version 1.15.5. The issue stems from insecure installation
+directory permissions combined with unsafe DLL loading behavior, allowing
+unprivileged users to execute arbitrary code and potentially escalate
+privileges.
+
+Affected Software
+-----------------
+
+Product:    OpenOrange Business Framework
+Version:    1.15.5
+Platform:   Microsoft Windows
+
+Vulnerability Details
+---------------------
+
+The OpenOrange Business Framework is installed by default into:
+
+    C:\OpenOrange
+
+This directory is created with overly permissive access control, granting
+write permissions to all authenticated users (NT AUTHORITY\Authenticated
+Users). This was confirmed using the "icacls" command:
+
+    NT AUTHORITY\Authenticated Users:(I)(OI)(CI)(M)
+
+During execution, the main application executable ("OpenOrange.exe")
+searches for required DLLs within its installation directory and loads them
+without validating their origin or integrity.
+
+This combination allows an attacker to place a malicious DLL in the
+installation path. The DLL will be loaded automatically whenever the
+application is run-by any user, including privileged accounts such as
+Administrator-resulting in arbitrary code execution.
+
+Execution by an unprivileged user enables arbitrary code execution and
+persistence. Execution by a privileged user may result in local privilege
+escalation and full system compromise.
+
+Impact
+------
+
+A local unprivileged user can exploit this issue to:
+
+    - Execute arbitrary code
+    - Escalate privileges
+    - Establish persistence on the system
+
+Mitigation
+----------
+
+Vendors and system administrators are advised to:
+
+    - Restrict write access to the C:\OpenOrange directory
+    - Avoid loading DLLs from user-writable paths
+    - Use absolute paths or trusted directories for DLLs
+    - Enforce code signing and integrity checks on loaded modules
+
+References
+----------
+
+- https://resources.infosecinstitute.com/topic/dll-hijacking
+- https://attack.mitre.org/techniques/T1574/001
+- https://docs.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order
+- https://support.microsoft.com/en-us/topic/secure-loading-of-libraries-to-prevent-dll-preloading-attacks-d41303ec-0748-9211-f317-2edc819682e1
+- https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya
+- https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryexa
+- https://www.openorange.com
+
+Credits
+-------
+
+Discovered by Igor Marcel of Blaze Information Security, https://www.blazeinfosec.com
+
+============================================================================
